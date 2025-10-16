@@ -19,9 +19,26 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
    public GUI(Solitaire game){
 	   this.game= game;
         //Create and set up the window.
-       setTitle("Solitaire");
+       setTitle("CatFishing");
        setSize(900,700);
        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    	setLayout(new GridBagLayout());
+    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(800, 600);
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+		JPanel panel1 = new JPanel();
+		gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 0.25;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(button2, gbc);
+
+		
        
        // this supplies the background
        try {
