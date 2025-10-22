@@ -26,50 +26,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
     	setLayout(new GridBagLayout());
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 600);
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-
-		JPanel panel1 = new JPanel();
-		panel1.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.RED));
-		gbc.gridx = 9;
-        gbc.gridy = 0;
-        gbc.gridwidth = 250;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        getContentPane().add(panel1, gbc);
-
-		JPanel panel2 = new JPanel();
-		panel2.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLUE));
-		gbc.gridx = 9;
-        gbc.gridy = 300;
-        gbc.gridwidth = 250;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        getContentPane().add(panel2, gbc);
-
-		JPanel panel3 = new JPanel();
-		panel3.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.MAGENTA));
-		gbc.gridx = 259;
-        gbc.gridy = 0;
-        gbc.gridwidth = 250;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        getContentPane().add(panel3, gbc);
-
-		JPanel panel4 = new JPanel();
-		panel4.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.YELLOW));
-		gbc.gridx = 509;
-        gbc.gridy = 0;
-        gbc.gridwidth = 250;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        getContentPane().add(panel4, gbc);
-
-		JPanel panel5 = new JPanel();
-		panel5.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.GREEN));
-		gbc.gridx = 509;
-        gbc.gridy = 300;
-        gbc.gridwidth = 250;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        getContentPane().add(panel5, gbc);
+		
        
        // this supplies the background
        try {
@@ -86,9 +43,65 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
         * once you have confirmed that the card shows up properly. The code below should allow you to play the solitare
         * game once it's fully created.
         */
-       Card card = new Card(2, Card.Suit.Diamonds);
-       System.out.println(card);
-       this.add(card);    
+      
+       GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+		JPanel panel1 = new JPanel();
+		panel1.setSize(new Dimension(250, 275));
+		panel1.setOpaque(false);
+		panel1.setLocation(9,0);
+		panel1.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.RED));
+		gbc.gridx = 9;
+        gbc.gridwidth = 250;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        getContentPane().add(panel1, gbc);
+
+		JPanel panel2 = new JPanel();
+		panel2.setSize(new Dimension(250, 275));
+		panel2.setOpaque(false);
+		panel2.setLocation(9,275);
+		panel2.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLUE));
+		gbc.gridx = 9;
+        gbc.gridy = 300;
+        gbc.gridwidth = 250;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        getContentPane().add(panel2, gbc);
+
+		JPanel panel3 = new JPanel();
+		panel3.setSize(new Dimension(250, 550));
+		panel3.setOpaque(false);
+		panel3.setLocation(259,0);
+		panel3.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.MAGENTA));
+		gbc.gridx = 259;
+        gbc.gridy = 0;
+        gbc.gridwidth = 250;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        getContentPane().add(panel3, gbc);
+
+		JPanel panel4 = new JPanel();
+		panel4.setSize(new Dimension(250, 275));
+		panel4.setOpaque(false);
+		panel4.setLocation(509,0);
+		panel4.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.YELLOW));
+		gbc.gridx = 509;
+        gbc.gridy = 0;
+        gbc.gridwidth = 250;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        getContentPane().add(panel4, gbc);
+
+		JPanel panel5 = new JPanel();
+		panel5.setSize(new Dimension(250, 275));
+		panel5.setOpaque(false);
+		panel5.setLocation(509,275);
+		panel5.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.GREEN));
+		gbc.gridx = 509;
+        gbc.gridy = 300;
+        gbc.gridwidth = 250;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        getContentPane().add(panel5, gbc);  
 
         this.setVisible(true);
     }
