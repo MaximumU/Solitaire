@@ -32,13 +32,44 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
 		JPanel panel1 = new JPanel();
-		gbc.gridx = 0;
+		panel1.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.RED));
+		gbc.gridx = 9;
         gbc.gridy = 0;
-        gbc.gridwidth = 0.25;
+        gbc.gridwidth = 250;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel.add(button2, gbc);
+        getContentPane().add(panel1, gbc);
 
-		
+		JPanel panel2 = new JPanel();
+		panel2.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLUE));
+		gbc.gridx = 9;
+        gbc.gridy = 300;
+        gbc.gridwidth = 250;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        getContentPane().add(panel2, gbc);
+
+		JPanel panel3 = new JPanel();
+		panel3.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.MAGENTA));
+		gbc.gridx = 259;
+        gbc.gridy = 0;
+        gbc.gridwidth = 250;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        getContentPane().add(panel3, gbc);
+
+		JPanel panel4 = new JPanel();
+		panel4.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.YELLOW));
+		gbc.gridx = 509;
+        gbc.gridy = 0;
+        gbc.gridwidth = 250;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        getContentPane().add(panel4, gbc);
+
+		JPanel panel5 = new JPanel();
+		panel5.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.GREEN));
+		gbc.gridx = 509;
+        gbc.gridy = 300;
+        gbc.gridwidth = 250;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        getContentPane().add(panel5, gbc);
        
        // this supplies the background
        try {
