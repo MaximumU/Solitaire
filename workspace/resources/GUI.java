@@ -11,6 +11,7 @@ import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Stack;
 
 
 public class GUI extends JFrame implements ActionListener, MouseListener, MouseMotionListener{
@@ -43,6 +44,8 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
         * once you have confirmed that the card shows up properly. The code below should allow you to play the solitare
         * game once it's fully created.
         */
+
+		
       
        GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
@@ -58,6 +61,18 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
         gbc.gridwidth = 250;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         getContentPane().add(panel1, gbc);
+
+		Stack<Card> stack1 = new Stack();
+		
+		stack1.add(new Card(12, Card.Suit.Clubs));
+		stack1.add(new Card(11, Card.Suit.Diamonds));
+		stack1.add(new Card(12, Card.Suit.Clubs));
+		stack1.add(new Card(11, Card.Suit.Diamonds));
+
+
+		panel1.setLayout(new FlowLayout());
+		panel1.add(drawPile(stack1));
+
 
 		JPanel panel2 = new JPanel();
 		panel2.setSize(new Dimension(250, 275));
@@ -105,6 +120,23 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
         this.setVisible(true);
     }
+
+	public JLayeredPane drawPile(Stack<Card> stackIn) {
+		JLayeredPane ret = new JLayeredPane();
+		ret.setLayout(null);
+		Object cards[];
+		cards = stackIn.toArray(); //please note we convert this stack to an array so that we can iterate through it backwards while drawing. You’ll need to cast each element inside cards to a <Card> in order to use the methods to adjust their position
+		//loop through the cards. Add them with a slight offset to the ret pane
+		for(int i = 0; i<cards.length; i++){
+			Card c = (Card)cards[i];
+			c.setBounds(0, 20*i, 100, 150);
+			ret.add(c, 0);
+		}
+		ret.setPreferredSize(new Dimension(120, 300));
+		ret.setBorder(BorderFactory.createMatteBorder(2,2,2,2, Color.pink));
+		return ret;
+	
+	}
 
 
 	@Override
