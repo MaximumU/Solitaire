@@ -68,8 +68,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		stack1.add(new Card(11, Card.Suit.Diamonds));
 		stack1.add(new Card(12, Card.Suit.Clubs));
 		stack1.add(new Card(11, Card.Suit.Diamonds));
-
-
+		
 		panel1.setLayout(new FlowLayout());
 		panel1.add(drawPile(stack1));
 
@@ -138,11 +137,15 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	
 	}
 
+	private Card card1;
+	private Card card2;
+
 
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
+
 	}
 
 	@Override
@@ -172,7 +175,16 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+		if(card1==null){
+        	card1 = ((Card)arg0.getComponent());
+        	card1.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.red));
+         }
+         else {
+             card2 = ((Card)arg0.getComponent());
+              //rest of your logic here including checking to make sure if the move is legal, checking if the game is over and updating the screen.
+              card1 = null; // reset the card variables so you're ready for another move
+              card2 = null;
+    	}
 	}
 
 	@Override
