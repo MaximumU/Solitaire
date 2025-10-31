@@ -20,8 +20,10 @@ public class Card extends JPanel{
 		// Members
 		public int value;
 		public Suit suit;
+
 		private BufferedImage image;
 		private BufferedImage backImage;
+		
 		boolean isReversed;
 		Point positionOffset;
 		

@@ -128,6 +128,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		//loop through the cards. Add them with a slight offset to the ret pane
 		for(int i = 0; i<cards.length; i++){
 			Card c = (Card)cards[i];
+			c.addMouseListener(this);
 			c.setBounds(0, 20*i, 100, 150);
 			ret.add(c, 0);
 		}
@@ -140,50 +141,69 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	private Card card1;
 	private Card card2;
 
+	private Card CardHeld;
+
+	//card1.addMouseListener(this);
+	//card2.addMouseListener(this);
+	
+	//<nameofcard>.addMouseListener(this);
+
 
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-
-
+		System.out.println("CALLED DRAGGED");
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
+		//System.out.println("CALLED CLICKED");
+		//System.out.println("CALLED CLICKED APPROPRIATLEY");
+		if (CardHeld != null) {
+			return;
+		}
+
+		Component MouseComponent = arg0.getComponent();
+		Card CardHold = (Card) MouseComponent;
+
+		CardHeld = 
 		
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
+	public void mouseEntered(MouseEvent MouseData) {
+		// System.out.println(M);
 		// TODO Auto-generated method stub
-		
+		 // System.out.println("CALLED ENTEREEED");
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+		/// System.out.println("CALLED EXITED");
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
+		// System.out.println("Mouse has been pressed");
 		if(card1==null){
         	card1 = ((Card)arg0.getComponent());
         	card1.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.red));
          }
          else {
              card2 = ((Card)arg0.getComponent());
+
               //rest of your logic here including checking to make sure if the move is legal, checking if the game is over and updating the screen.
-              card1 = null; // reset the card variables so you're ready for another move
-              card2 = null;
+             card1 = null; // reset the card variables so you're ready for another move
+             card2 = null;
     	}
 	}
 
@@ -195,6 +215,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		System.out.println("action was probably performed bro idk?");
 		// TODO Auto-generated method stub
 		
 	}
