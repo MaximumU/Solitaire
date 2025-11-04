@@ -11,6 +11,7 @@ import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Stack;
 
 
@@ -142,6 +143,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 	private Card card2;
 
 	private Card CardHeld;
+	// uppppphereee
 
 	//card1.addMouseListener(this);
 	//card2.addMouseListener(this);
@@ -172,9 +174,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
 		Component MouseComponent = arg0.getComponent();
 		Card CardHold = (Card) MouseComponent;
-
-		CardHeld = 
-		
+		CardHeld = CardHold;
 	}
 
 	@Override
@@ -219,4 +219,26 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		// TODO Auto-generated method stub
 		
 	}
+/*
+private void update() {
+    columns.removeAll();
+    topColumns.removeAll();
+	ArrayList<Stack<Card>> allColumns = game.getColumns();
+	
+	for(Stack<Card> stack: allColumns) {
+		topColumns.add(drawPile(stack, false)); 
+	}
+
+	columns.add(drawDeck(game.getDeck()));
+	columns.add(drawPile(game.getPile(), true));
+	columns.add(drawFinal(game.hearts, "hearts"));
+	columns.add(drawFinal(game.spades, "spades"));
+	columns.add(drawFinal(game.diamonds, "diamonds"));
+	columns.add(drawFinal(game.clubs, "clubs"));
+	System.out.println("updating");
+
+    this.revalidate();
+    this.repaint();
+    }
+	*/
 }
