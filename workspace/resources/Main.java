@@ -1,11 +1,27 @@
 package resources;
 
+import java.util.*;
 
 public class Main {
-	public static int CardLimit = 50;
-	public static int PlayerLimit = 4;
-	public static ArrayList<Card> RandomCardData = new ArrayList<Card>();
+	public static int cardLimit = 52;
+	public static int numPlayer = 4;
+	Stack<Card> pile;
+	public static ArrayList<Card> TemplateDeck  = new ArrayList<Card>();
+
+	static {
+		boolean color;
 	
+	for(int i = 1; i < 14; i ++){
+		for(int j = 1; j < 5; j++){
+			if( i == 1 || i == 4)
+				color = false;
+			else
+				color = true;
+			TemplateDeck.add(new Card(i, Suit(j, color)));
+		}
+	}
+	}
+
 	public static double Lerp(double Start, double Goal, double Alpha) {
 		return Start + (Goal - Start) * Alpha;
 	}

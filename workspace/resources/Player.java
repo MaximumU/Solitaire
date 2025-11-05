@@ -43,20 +43,27 @@ public class Player {
 	// need method of storing random cards.
 	
 	public void CreateDeck() {
-		// builds a deck..
-		ArrayList<Card> DeckBuilt = new ArrayList<Card>();
-		
-		// add stuff here bro.
+		//ArrayList<Card> DeckBuilt = new ArrayList<Card>();
+		int QuantityAmount = cardLimit / numPlayer;
+		int Selected = 0;
+
+		while (Selected < QuantityAmount) {
+			int RandomIndex = (int) (Math.random() * TemplateDeck.size());
+			Card SelectedCard = TemplateDeck.get(RandomIndex);
+
+			if (this.hand.size() < 3) {
+				this.hand.add(SelectedCard)
+			} else { 
+			   this.deck.add(SelectedCard);
+			}
+
+			Selected += 1;
+		};
+
+		//this.deck = DeckBuilt;
 	}
 
-	public Player(ArrayList<Card> deck) {/// constructor precondition: deck.size() >= 0
-		for (int i = 0; i < deck.size(); i++) {
-			if (i < deck.size() - 3) {
-				this.deck.add(deck.get(i));
-			}
-			else {
-				this.hand.add(deck.get(i));
-			}
-		}
+	public Player() {/// constructor precondition: deck.size() >= 0
+	   CreateDeck();
 	}
 }

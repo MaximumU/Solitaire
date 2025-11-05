@@ -85,6 +85,10 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
         gbc.fill = GridBagConstraints.HORIZONTAL;
         getContentPane().add(panel2, gbc);
 
+		Stack<Card> stack2 = new Stack();
+		panel2.setLayout(new FlowLayout());
+		panel2.add(drawPile(stack2));
+
 		JPanel panel3 = new JPanel();
 		panel3.setSize(new Dimension(250, 550));
 		panel3.setOpaque(false);
@@ -107,6 +111,10 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
         gbc.fill = GridBagConstraints.HORIZONTAL;
         getContentPane().add(panel4, gbc);
 
+		Stack<Card> stack4 = new Stack();
+		panel4.setLayout(new FlowLayout());
+		panel4.add(drawPile(stack4));
+
 		JPanel panel5 = new JPanel();
 		panel5.setSize(new Dimension(250, 275));
 		panel5.setOpaque(false);
@@ -117,6 +125,10 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
         gbc.gridwidth = 250;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         getContentPane().add(panel5, gbc);  
+
+		Stack<Card> stack5 = new Stack();
+		panel5.setLayout(new FlowLayout());
+		panel5.add(drawPile(stack2));
 
         this.setVisible(true);
     }

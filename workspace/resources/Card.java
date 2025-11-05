@@ -39,7 +39,7 @@ public class Card extends JPanel{
 			public int value;
 			public boolean isRed;
 			
-			private Suit(int value, boolean isRed) {
+			Suit(int value, boolean isRed) {
 				this.value = value;
 				this.isRed = isRed;
 			}
