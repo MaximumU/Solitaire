@@ -45,9 +45,10 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
         * once you have confirmed that the card shows up properly. The code below should allow you to play the solitare
         * game once it's fully created.
         */
-
-		
       
+	  for (int i = 1; i <= Main.NUMPLAYER; i++) {
+		
+	  }
        GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
         gbc.gridy = 0;
@@ -65,10 +66,10 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
 		Stack<Card> stack1 = new Stack();
 		
-		stack1.add(new Card(12, Card.Suit.Clubs));
-		stack1.add(new Card(11, Card.Suit.Diamonds));
-		stack1.add(new Card(12, Card.Suit.Clubs));
-		stack1.add(new Card(11, Card.Suit.Diamonds));
+		stack1.add(game.getPlayers().get(0).getCard(1));
+		stack1.add(game.getPlayers().get(0).getCard(2));
+		stack1.add(game.getPlayers().get(0).getCard(3));
+		stack1.add(new Card(0, Card.Suit.Diamonds));
 		
 		panel1.setLayout(new FlowLayout());
 		panel1.add(drawPile(stack1));
@@ -86,6 +87,12 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
         getContentPane().add(panel2, gbc);
 
 		Stack<Card> stack2 = new Stack();
+
+		stack2.add(game.getPlayers().get(1).getCard(1));
+		stack2.add(game.getPlayers().get(1).getCard(2));
+		stack2.add(game.getPlayers().get(1).getCard(3));
+		stack2.add(new Card(0, Card.Suit.Diamonds));
+
 		panel2.setLayout(new FlowLayout());
 		panel2.add(drawPile(stack2));
 
@@ -112,6 +119,12 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
         getContentPane().add(panel4, gbc);
 
 		Stack<Card> stack4 = new Stack();
+
+		stack4.add(game.getPlayers().get(2).getCard(1));
+		stack4.add(game.getPlayers().get(2).getCard(2));
+		stack4.add(game.getPlayers().get(2).getCard(3));
+		stack4.add(new Card(0, Card.Suit.Diamonds));
+
 		panel4.setLayout(new FlowLayout());
 		panel4.add(drawPile(stack4));
 
@@ -127,6 +140,12 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
         getContentPane().add(panel5, gbc);  
 
 		Stack<Card> stack5 = new Stack();
+
+		stack5.add(game.getPlayers().get(3).getCard(1));
+		stack5.add(game.getPlayers().get(3).getCard(2));
+		stack5.add(game.getPlayers().get(3).getCard(3));
+		stack5.add(new Card(0, Card.Suit.Diamonds));
+
 		panel5.setLayout(new FlowLayout());
 		panel5.add(drawPile(stack2));
 

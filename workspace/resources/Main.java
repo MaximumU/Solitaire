@@ -3,21 +3,20 @@ package resources;
 import java.util.*;
 
 public class Main {
-	public static int cardLimit = 52;
-	public static int numPlayer = 4;
+	public static int CARDLIMIT = 52;
+	public static int NUMPLAYER = 4;
+	public static ArrayList<Card> PRIMARYDECK  = new ArrayList<Card>();
+
 	Stack<Card> pile;
-	public static ArrayList<Card> TemplateDeck  = new ArrayList<Card>();
 
 	static {
-		boolean color;
 	
-	for(int i = 1; i < 14; i ++){
-		for(int j = 1; j < 5; j++){
-			if( i == 1 || i == 4)
-				color = false;
-			else
-				color = true;
-			TemplateDeck.add(new Card(i, Suit(j, color)));
+	boolean color;
+	
+	for(int i = 1; i <= 13; i ++){
+		for(Card.Suit suit: Card.Suit.values()){
+
+			PRIMARYDECK.add(new Card(i, suit));
 		}
 	}
 	}
