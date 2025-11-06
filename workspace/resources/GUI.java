@@ -47,8 +47,9 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
         */
       
 	  for (int i = 1; i <= Main.NUMPLAYER; i++) {
-		
+
 	  }
+	  
        GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
         gbc.gridy = 0;
