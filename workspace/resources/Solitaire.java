@@ -13,26 +13,16 @@ public class Solitaire {
 		return players;
 	}
 
-	/*public void startGame(){
-		players.get(1).createDeck();
-		players.get(2).createDeck();
-		players.get(3).createDeck();
-		players.get(4).createDeck();
-	} */
-
-
 	public void newRound(Card c){//precondition c != null
 	//  one round played: current player play c
 		Player currentPlayer = this.GetPlayingPlayer();// this is the current player
 		currentPlayer.playCard(c);// current player play deck
 		river.add(c);// add the card into the player
 		// Now we need to check if this player win anything
-		
+		ArrayList<Card> cardWon = new ArrayList<>();
+		// rule #1 to win
 		for (int i = river.size()-2; i >= 0; i--){// start from the second last card, ending at the first
-			
 			if (river.get(i).value == c.value){
-				ArrayList<Card> cardWon = new ArrayList<>();
-				
 				for (int j = river.size(); j >= i; j--){
 					cardWon.add(river.get(i));
 					river.remove(i);// Removing each card move from the river
@@ -41,6 +31,36 @@ public class Solitaire {
 				currentPlayer.addCard(cardWon);// giving the deck won to the Player
 			}
 		}
+
+		// rule #2 to win all, with a jack played:
+		if (c.value == 11){
+			for (int i = 0; i < river.size(); i++){
+				cardWon.add(river.get(i));
+				river.remove(i);// Removing each card move from the river
+			}
+		}
+
+		// rule #3 to tax, with an Ace played
+		else if (c.value == 1){
+			if (c.suit == Card.Suit.Diamonds){
+				for (Player p : players){
+					if (p != currentPlayer){
+						
+					}
+				}
+			}
+			if (c.suit == Card.Suit.Clubs){
+				
+			}
+			if (c.suit == Card.Suit.Hearts){
+				
+			}
+			if (c.suit == Card.Suit.Spades){
+				
+			}
+
+		}
+
 		round++;
 	}
 	Player PlayingPlayer = null;

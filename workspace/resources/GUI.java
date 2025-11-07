@@ -46,37 +46,55 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
         * game once it's fully created.
         */
       
-	  for (int i = 1; i <= Main.NUMPLAYER; i++) {
+	  for (int i = 0; i < Main.NUMPLAYER; i++) {
+		Player RepresentativePlayer = game.getPlayers().get(i);
 
-	  }
-	  
-       GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridx = 0;
-        gbc.gridy = 0;
+        GridBagConstraints gbc = new GridBagConstraints();
+
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
 		JPanel panel1 = new JPanel();
 		panel1.setSize(new Dimension(250, 275));
 		panel1.setOpaque(false);
-		panel1.setLocation(9,0);
+		panel1.setLocation(Main.PlayerData[i][0], Main.PlayerData[i][1]);
 		panel1.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.RED));
-		gbc.gridx = 9;
+
+		if (i == 0) {
+		   gbc.gridx = 9;
+           gbc.gridy = 0;
+		} else if (i == 1) {
+			gbc.gridx = 9;
+			gbc.gridy = 300;
+			//gbc.gridy = 2;
+		} else if (i == 2) {
+			gbc.gridx = 259;
+			gbc.gridy = 0;
+		} else if (i == 3) {
+			gbc.gridx = 509;
+			gbc.gridy = 0;
+		}
+
         gbc.gridwidth = 250;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         getContentPane().add(panel1, gbc);
 
 		Stack<Card> stack1 = new Stack();
 		
-		stack1.add(game.getPlayers().get(0).getCard(1));
-		stack1.add(game.getPlayers().get(0).getCard(2));
-		stack1.add(game.getPlayers().get(0).getCard(3));
 		stack1.add(new Card(0, Card.Suit.Diamonds));
+
+		for (int index = 3; index >= 1; index--) {
+			stack1.add(game.getPlayers().get(i).getCard(index));
+		}
+
+		RepresentativePlayer.SetCardStack(stack1);
 		
 		panel1.setLayout(new FlowLayout());
 		panel1.add(drawPile(stack1));
 
+	  }
+	  
 
-		JPanel panel2 = new JPanel();
+	/*	JPanel panel2 = new JPanel();
 		panel2.setSize(new Dimension(250, 275));
 		panel2.setOpaque(false);
 		panel2.setLocation(9,275);
@@ -89,10 +107,10 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
 		Stack<Card> stack2 = new Stack();
 
-		stack2.add(game.getPlayers().get(1).getCard(1));
-		stack2.add(game.getPlayers().get(1).getCard(2));
-		stack2.add(game.getPlayers().get(1).getCard(3));
 		stack2.add(new Card(0, Card.Suit.Diamonds));
+		stack2.add(game.getPlayers().get(1).getCard(3));
+		stack2.add(game.getPlayers().get(1).getCard(2));
+		stack2.add(game.getPlayers().get(1).getCard(1));
 
 		panel2.setLayout(new FlowLayout());
 		panel2.add(drawPile(stack2));
@@ -121,10 +139,10 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
 		Stack<Card> stack4 = new Stack();
 
-		stack4.add(game.getPlayers().get(2).getCard(1));
-		stack4.add(game.getPlayers().get(2).getCard(2));
-		stack4.add(game.getPlayers().get(2).getCard(3));
 		stack4.add(new Card(0, Card.Suit.Diamonds));
+		stack4.add(game.getPlayers().get(2).getCard(3));
+		stack4.add(game.getPlayers().get(2).getCard(2));
+		stack4.add(game.getPlayers().get(2).getCard(1));
 
 		panel4.setLayout(new FlowLayout());
 		panel4.add(drawPile(stack4));
@@ -142,13 +160,16 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
 		Stack<Card> stack5 = new Stack();
 
-		stack5.add(game.getPlayers().get(3).getCard(1));
-		stack5.add(game.getPlayers().get(3).getCard(2));
-		stack5.add(game.getPlayers().get(3).getCard(3));
 		stack5.add(new Card(0, Card.Suit.Diamonds));
+		stack5.add(game.getPlayers().get(3).getCard(3));
+		stack5.add(game.getPlayers().get(3).getCard(2));
+		stack5.add(game.getPlayers().get(3).getCard(1));
 
 		panel5.setLayout(new FlowLayout());
 		panel5.add(drawPile(stack2));
+
+	*/
+	
 
         this.setVisible(true);
     }
@@ -200,6 +221,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		// TODO Auto-generated method stub
 		//System.out.println("CALLED CLICKED");
 		//System.out.println("CALLED CLICKED APPROPRIATLEY");
+		System.out.println("mouse clicked");
 		if (CardHeld != null) {
 			return;
 		}
@@ -207,6 +229,11 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		Component MouseComponent = arg0.getComponent();
 		Card CardHold = (Card) MouseComponent;
 		CardHeld = CardHold;
+		if (CardHold != null){
+			game.newRound(CardHold);
+			System.out.println("card moved to river");
+		}
+		
 	}
 
 	@Override
@@ -251,8 +278,8 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		// TODO Auto-generated method stub
 		
 	}
-/*
 private void update() {
+/*
     columns.removeAll();
     topColumns.removeAll();
 	ArrayList<Stack<Card>> allColumns = game.getColumns();

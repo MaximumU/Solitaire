@@ -1,12 +1,17 @@
 package resources;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class Player {
 	private ArrayList<Card> hand = new ArrayList<>();
-	private Queue<Card> deck = new LinkedList<>();
+	private ArrayList<Card> AllCards = new ArrayList<>();
 
+	private Queue<Card> deck = new LinkedList<>();
+	private Stack<Card> PrimaryCardStack = null;
+
+	/* public ArrayList<Card> removeCards(int i){ // remove the last i num of card and return them, used when being tax 
+		if 
+	
+	} */ 
 	public void playCard(Card c) {// play card and draw a card from the deck
 		for (int i = 0; i < hand.size(); i++) {
 			if(hand.get(i).equals(c)){
@@ -42,7 +47,11 @@ public class Player {
 	}
 	// need method of storing random cards.
 	public Card getCard(int i){
-		return hand.get(Math.clamp(0, i, hand.size()-1));
+		return hand.get(Math.clamp(i, 0, hand.size()-1));
+	}
+
+	public void SetCardStack(Stack<Card> CardStack) {
+		this.PrimaryCardStack = CardStack;
 	}
 	
 	public void CreateDeck() {
@@ -60,6 +69,8 @@ public class Player {
 				this.deck.add(HoldingDeck.get(RandomIndex));
 			};
 
+			AllCards.add(HoldingDeck.get(RandomIndex));
+			
 			Selected += 1;
 			HoldingDeck.remove(RandomIndex);
 		}
