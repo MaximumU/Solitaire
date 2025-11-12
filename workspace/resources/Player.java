@@ -5,13 +5,30 @@ public class Player {
 	private ArrayList<Card> hand = new ArrayList<>();
 	private ArrayList<Card> AllCards = new ArrayList<>();
 
+	private Card HeldCard;
+	
 	private Queue<Card> deck = new LinkedList<>();
 	private Stack<Card> PrimaryCardStack = null;
 
-	/* public ArrayList<Card> removeCards(int i){ // remove the last i num of card and return them, used when being tax 
-		if 
-	
-	} */ 
+	public ArrayList<Card> removeCards(int i){ // remove the last i num of card and return them, used when being tax 
+		ArrayList<Card> cardRemoved = new ArrayList<>();
+		for (int j = 0; j < i; i++){
+			cardRemoved.add(hand.remove(0));
+			if (deck.size() >= 1) {//draw a card of their deck is not empty
+				hand.add(deck.remove());
+			}
+		}
+		return cardRemoved;
+	}
+
+	public void SetHeldCard(Card Selection) {
+		HeldCard = Selection;
+	}
+
+	public void SetHeldCard() {
+		HeldCard = null;
+	}
+
 	public void playCard(Card c) {// play card and draw a card from the deck
 		for (int i = 0; i < hand.size(); i++) {
 			if(hand.get(i).equals(c)){
@@ -33,13 +50,15 @@ public class Player {
 
 		return cardplayed;
 	}
+
+
 	
 	public void addCard(Card c){// playCard remove, 
 	// this one is called when player is winning card from the river
 		deck.add(c);
 		
 	}
-	public void addCard(ArrayList<Card> cards){// playCard remove, 
+	public void addCards(ArrayList<Card> cards){// playCard remove, 
 	// this one is called when player is winning card from the river
 		for (Card card : cards){
 			deck.add(card);
