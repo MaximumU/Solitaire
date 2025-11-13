@@ -77,10 +77,11 @@ public class Solitaire {
 					}
 				}
 			}
-
 		}
+
 		currentPlayer.addCards(cardWon);// give the current player the card that he deserve
 		round++;
+		
 	}
 	Player PlayingPlayer = null;
 	ArrayList<Player>PlayerData = new ArrayList();

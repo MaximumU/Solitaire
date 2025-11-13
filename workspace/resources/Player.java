@@ -6,6 +6,7 @@ public class Player {
 	private ArrayList<Card> AllCards = new ArrayList<>();
 
 	private Card HeldCard;
+	private Panel PlayerPanel;
 	
 	private Queue<Card> deck = new LinkedList<>();
 	private Stack<Card> PrimaryCardStack = null;
@@ -19,6 +20,9 @@ public class Player {
 			}
 		}
 		return cardRemoved;
+	}
+	public ArrayList<Card> getHands(){
+		return hand;
 	}
 
 	public void SetHeldCard(Card Selection) {
@@ -63,6 +67,10 @@ public class Player {
 		for (Card card : cards){
 			deck.add(card);
 		}
+	}
+
+	public ArrayList<Card> GetHand() {
+		return this.hand;
 	}
 	// need method of storing random cards.
 	public Card getCard(int i){
