@@ -7,10 +7,13 @@ import java.util.Stack;
 public class Solitaire {
 	public ArrayList<Player> players = new ArrayList<>();// player of the game
 	private int round = 1;//round number, use to indicate who is playing
-	private List<Card> river = new ArrayList<>();
+	private ArrayList<Card> river = new ArrayList<>();
 	
 	public ArrayList<Player> getPlayers(){
 		return players;
+	}
+	public int getRound(){
+		return round;
 	}
 
 	public void newRound(Card c){//precondition c != null.
@@ -78,8 +81,17 @@ public class Solitaire {
 				}
 			}
 		}
-
+		System.out.println("new round");
 		currentPlayer.addCards(cardWon);// give the current player the card that he deserve
+		for (int i = 0; i < river.size(); i++){
+			for (int j = 0; j < players.get(i).getAllCards().size(); j++){
+				System.out.println("Player " + (i+1) + " has" + players.get(i).getAllCards().get(j).value);
+			}
+		}
+		for (int i = 0; i < river.size(); i++){
+			System.out.println(river.get(i).value);
+		}
+		
 		round++;
 		
 	}
@@ -93,6 +105,10 @@ public class Solitaire {
 	public void IncremenentRound() {
 		round++;
 	};
+
+	public ArrayList<Card> GetRiver() {
+		return river;
+	}
 
 	public Solitaire() {// this is the constructor
 		for (int i = 1; i <= Main.NUMPLAYER; i++) {

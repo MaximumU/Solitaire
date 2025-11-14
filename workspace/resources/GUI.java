@@ -19,7 +19,8 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
     Solitaire game;
     JPanel middle;
-    ArrayList<JPanel> cardDisplayed;
+    private ArrayList<JPanel> cardDisplayed;
+    // first element corrospond with river; the other four stand for each of the four player respecfully.
 
     
     public GUI(Solitaire game) {
@@ -28,7 +29,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
         cardDisplayed = new ArrayList();
         // Create and set up the window.
         setTitle("CatFishing");
-        setSize(900, 700);
+        setSize(900, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
@@ -51,7 +52,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
          */
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.anchor = GridBagConstraints.WEST; // Align to the left
+        gbc.anchor = GridBagConstraints.PAGE_START; // Align to the left
 
         JPanel back = new JPanel();
         back.setLayout(new GridBagLayout());
@@ -85,7 +86,9 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
             // define a jpanel
 			
             JPanel panel = new JPanel();
-            panel.setSize(new Dimension(250, 275));
+            panel.setSize(new Dimension(250, 200));
+            panel.setMinimumSize(new Dimension(200,350));
+            panel.setMaximumSize(new Dimension(200, 350));
             panel.setOpaque(false);
             panel.setLocation(Main.PlayerData[i][0], Main.PlayerData[i][1]);
             
@@ -96,10 +99,10 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
                 gbc.gridx = 1;
                 gbc.gridy = 0;
                 gbc.gridheight = 2;
-				gbc.ipadx = 150;
-				gbc.ipady = 400;
                 back.add(middle, gbc);
 				middle.setOpaque(false);
+                middle.setMinimumSize(new Dimension(250,700));
+                middle.setMaximumSize(new Dimension(250, 700));
             }
             gbc.gridheight =1 ;
             // creates visible hands for each player, separated by colors, etc:
@@ -128,7 +131,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
            // finalized:
 			panel.setLayout(new FlowLayout());
-			panel.add(drawShownPile(players.get(i).getHands()));
+			panel.add(drawShownPile(players.get(i).getHands(), 50));
 			back.add(panel, gbc);
 			panel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, ColorSet));
 			
@@ -138,36 +141,17 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
 		
 
-        back.setSize(900,700);
+        back.setSize(900,800);
         back.setOpaque(false);
 
         this.add(back);
-        this.revalidate();
         this.repaint();
         this.setVisible(true);
 
     }
 
-    public JLayeredPane drawPile(Stack<Card> stackIn) {
-        JLayeredPane ret = new JLayeredPane();
-        ret.setLayout(null);
-        Object cards[];
-        cards = stackIn.toArray(); // please note we convert this stack to an array so that we can iterate through
-                                    // it backwards while drawing. You’ll need to cast each element inside cards to
-                                    // a <Card> in order to use the methods to adjust their position
-        // loop through the cards. Add them with a slight offset to the ret pane
-        for (int i = 0; i < cards.length; i++) {
-            Card c = (Card) cards[i];
-            c.addMouseListener(this);
-            c.setBounds(0, 20 * i, 100, 150);
-            ret.add(c, 0);
-        }
-        ret.setPreferredSize(new Dimension(120, 300));
-        ret.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.pink));
-        return ret;
-
-    }
-	public JLayeredPane drawShownPile(ArrayList<Card> stackIn) {
+    // this is just another drayPile method, but it takes in a arrayList instead of a stack
+	public JLayeredPane drawShownPile(ArrayList<Card> stackIn, int cardDistance) {
 		JLayeredPane ret = new JLayeredPane();
 		ret.setLayout(null);
 		Object cards[];
@@ -178,15 +162,19 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		for (int i = 0; i < cards.length; i++) {
 			Card c = (Card) cards[i];
 			c.addMouseListener(this);
-			c.setBounds(0, 60 * i, 100, 150);
+			c.setBounds(0, cardDistance * i, 100, 150);
 			ret.add(c, 0);
+        
 		}
+
 		ret.setPreferredSize(new Dimension(120, 300));
 		ret.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.pink));
 		return ret;
 
 	}
-	//public void update(){}
+	//public void update(){// called when a new round is played
+        
+    // } 
 
     private Card card1;
     private Card card2;
@@ -220,7 +208,8 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		Player currentPlayer = game.GetPlayingPlayer();
 		Card CardSelected = (Card) arg0.getComponent();
 		
-		//if (CardSelected == null) {
+		if (CardSelected != null) {
+            System.out.println("BOIII IM PLAYING");
 			// ensure that card selected is a card that the current player actually owns.
 
 			// iterate through player hand, check if it is valid. if it is owner card then put it into river.
@@ -241,11 +230,16 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 			}
 
 			if (!IsOwnerCard) {
+                System.out.println("bruh im not owner card lel");
 				return;
 			}
 
+            System.out.println("PLAYED CARD SELECTED!");
+
 			game.newRound(CardSelected);
 			this.update();
+            
+        }
 		//} else {
 //
 		///}
@@ -311,18 +305,34 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
     }
 
     private void update() {
-		for (int i = 0; i < Main.NUMPLAYER; i++) {
+      //  JPanel validPanel = cardDisplayed.get(game.getRound);
+		System.out.println("UPDATED!!!!!");
+
+        for (int i = 0; i < Main.NUMPLAYER; i++) {
 			Player SelectedPlayer = game.getPlayers().get(i);
 			ArrayList<Card> PlayerHand = SelectedPlayer.getHands();
-			Panel UserPanel = cardDisplayed.get(i); // still feel like the player should hold this since its specific to them and shld use getters to get this, i dont grasp why this is being held in gui
+			JPanel UserPanel = cardDisplayed.get(i+1); 
+
+            // still feel like the player should hold this since its specific to them and shld use getters to get this, i dont grasp why this is being held in gui
 			// sure it makes sense like technologically but when you think of itlogically a player should own their own stuff
 			
 			UserPanel.removeAll();
-			UserPanel.ao
-			for (int i = 0; i < PlayerHand.size(); i++) {
-				
-			}
+
+            for (int index = 0; index < PlayerHand.size(); index++) {
+                System.out.println("this is proof that i stillhave cards.");
+            }
+
+			UserPanel.add(this.drawShownPile(PlayerHand, 60));
 		}
+
+        ArrayList<Card> CardRiver = game.GetRiver();
+        
+        middle.removeAll();
+        middle.add(this.drawShownPile(CardRiver, 20));
+        
+        this.repaint();
+        this.setVisible(true);
+        // just refreshes everything 🧑‍🌾🧑‍🌾;
     }
 
     // private void update() {

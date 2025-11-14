@@ -3,14 +3,13 @@ import java.util.*;
 
 public class Player {
 	private ArrayList<Card> hand = new ArrayList<>();
-	private ArrayList<Card> AllCards = new ArrayList<>();
-
+	private ArrayList<Card> allCards = new ArrayList<>();
 	private Card HeldCard;
-	private Panel PlayerPanel;
-	
 	private Queue<Card> deck = new LinkedList<>();
 	private Stack<Card> PrimaryCardStack = null;
-
+	public ArrayList<Card> getAllCards(){
+		return allCards;
+	}
 	public ArrayList<Card> removeCards(int i){ // remove the last i num of card and return them, used when being tax 
 		ArrayList<Card> cardRemoved = new ArrayList<>();
 		for (int j = 0; j < i; i++){
@@ -36,6 +35,7 @@ public class Player {
 	public void playCard(Card c) {// play card and draw a card from the deck
 		for (int i = 0; i < hand.size(); i++) {
 			if(hand.get(i).equals(c)){
+				System.out.println("FOUND CARD, REMOVING IT FROM THE PLAYERS HAND!");
 				hand.remove(i);
 				if (deck.size() >= 1) {//draw a card of their deck is not empty
 					hand.add(deck.remove());
@@ -96,7 +96,7 @@ public class Player {
 				this.deck.add(HoldingDeck.get(RandomIndex));
 			};
 
-			AllCards.add(HoldingDeck.get(RandomIndex));
+			allCards.add(HoldingDeck.get(RandomIndex));
 			
 			Selected += 1;
 			HoldingDeck.remove(RandomIndex);
