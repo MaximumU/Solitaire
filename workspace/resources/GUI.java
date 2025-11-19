@@ -19,6 +19,8 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
     Solitaire game;
     JPanel middle;
+
+    private JLabel MainLabel = null;
     private ArrayList<JPanel> cardDisplayed;
     // first element corrospond with river; the other four stand for each of the four player respecfully.
 
@@ -58,13 +60,14 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
         back.setLayout(new GridBagLayout());
         Color ColorSet = null;
 
+
         // makes visible river in center of board
 		middle = new JPanel();
 		cardDisplayed.add(middle);
         ColorSet = Color.MAGENTA;
         middle.setSize(new Dimension(250,275));
         middle.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, ColorSet));
-        
+
         
         for (int i = 0; i < Main.NUMPLAYER; i++) {
             // player card stack, initilization.
@@ -103,6 +106,17 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 				middle.setOpaque(false);
                 middle.setMinimumSize(new Dimension(250,700));
                 middle.setMaximumSize(new Dimension(250, 700));
+            }
+            if(i == 3){
+                gbc.gridx = 3;
+                gbc.gridy = 0;
+                JPanel handsizedisplay = new JPanel();
+                JLabel handsizedTempLay = new JLabel("Hand sizes: Player 1 (" + players.get(0).getDeck().size() + "), Player 2 ("
+                    + players.get(1).getDeck().size() + "), Player 3 (" + players.get(2).getDeck().size() + "), Player 4 ("
+                    + players.get(3).getDeck().size() + ")");
+                back.add(handsizedisplay,gbc);
+                this.MainLabel = handsizedTempLay;
+                handsizedisplay.add(handsizedTempLay);
             }
             gbc.gridheight =1 ;
             // creates visible hands for each player, separated by colors, etc:
@@ -164,7 +178,6 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 			c.addMouseListener(this);
 			c.setBounds(0, cardDistance * i, 100, 150);
 			ret.add(c, 0);
-        
 		}
 
 		ret.setPreferredSize(new Dimension(120, 300));
@@ -209,14 +222,13 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 		Card CardSelected = (Card) arg0.getComponent();
 		
 		if (CardSelected != null) {
-            System.out.println("BOIII IM PLAYING");
+            // System.out.println("BOIII IM PLAYING");
 			// ensure that card selected is a card that the current player actually owns.
 
 			// iterate through player hand, check if it is valid. if it is owner card then put it into river.
 			ArrayList<Card> PlayerHand = currentPlayer.GetHand();
 			
 			boolean IsOwnerCard = false;
-			int FoundIndex = -1;
 			
 			// iterate through entire hand, ensure that u have
 			for (int i = 0; i < PlayerHand.size(); i++) {
@@ -224,7 +236,6 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
 				if (FoundCard == CardSelected) {
 					IsOwnerCard = true;
-					FoundIndex = 1;
 					break;
 				}
 			}
@@ -235,29 +246,10 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 			}
 
             System.out.println("PLAYED CARD SELECTED!");
-
 			game.newRound(CardSelected);
 			this.update();
-            
         }
-		//} else {
-//
-		///}
-       /* if (CardHeld != null) {
-            return;
-		}
-
-        Player currentPlayer = game.GetPlayingPlayer();
-        // currentPlayer.SetHeldCard
-        Component MouseComponent = arg0.getComponent();
-
-        Card CardHold = (Card) MouseComponent;
-        CardHeld = CardHold;
-
-        if (CardHold != null) {
-            game.newRound(CardHold);
-            System.out.println("card moved to river");
-        }*/
+	
 
     }
 
@@ -306,7 +298,6 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
     private void update() {
       //  JPanel validPanel = cardDisplayed.get(game.getRound);
-		System.out.println("UPDATED!!!!!");
 
         for (int i = 0; i < Main.NUMPLAYER; i++) {
 			Player SelectedPlayer = game.getPlayers().get(i);
@@ -317,11 +308,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 			// sure it makes sense like technologically but when you think of itlogically a player should own their own stuff
 			
 			UserPanel.removeAll();
-
-            for (int index = 0; index < PlayerHand.size(); index++) {
-                System.out.println("this is proof that i stillhave cards.");
-            }
-
+            
 			UserPanel.add(this.drawShownPile(PlayerHand, 60));
 		}
 
@@ -329,32 +316,19 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
         
         middle.removeAll();
         middle.add(this.drawShownPile(CardRiver, 20));
-        
+
+        if (this.MainLabel != null) {
+            ArrayList<Player>  players = game.getPlayers();
+
+            MainLabel.setText("Deck sizes: Player 1 (" + players.get(0).getDeck().size() + "), Player 2 ("
+                + players.get(1).getDeck().size() + "), Player 3 (" + players.get(2).getDeck().size() + "), Player 4 ("
+                + players.get(3).getDeck().size() + ")");
+        }
+
         this.repaint();
         this.setVisible(true);
         // just refreshes everything 🧑‍🌾🧑‍🌾;
     }
-
-    // private void update() {
-    /*
-     * columns.removeAll();
-     * topColumns.removeAll();
-     * ArrayList<Stack<Card>> allColumns = game.getColumns();
-     * 
-     * for(Stack<Card> stack: allColumns) {
-     * topColumns.add(drawPile(stack, false));
-     * }
-     * 
-     * columns.add(drawDeck(game.getDeck()));
-     * columns.add(drawPile(game.getPile(), true));
-     * columns.add(drawFinal(game.hearts, "hearts"));
-     * columns.add(drawFinal(game.spades, "spades"));
-     * columns.add(drawFinal(game.diamonds, "diamonds"));
-     * columns.add(drawFinal(game.clubs, "clubs"));
-     * System.out.println("updating");
-     * 
-     * this.revalidate();
-     * this.repaint();
-     * }
-     */
 }
+
+    

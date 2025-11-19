@@ -26,7 +26,7 @@ public class Solitaire {
 		// rule #1 to win with pairs
 		for (int i = river.size()-2; i >= 0; i--){// start from the second last card, ending at the first
 			if (river.get(i).value == c.value){ // one card found with the same value with the card player
-				for (int j = river.size(); j >= i; j--){// start from the end, ending at the card found previously
+				for (int j = river.size()-1; j >= i; j--){// start from the end, ending at the card found previously
 					cardWon.add(river.get(i));// adding each card to the card Won
 					river.remove(i);// Removing each card move from the river
 				}
@@ -36,9 +36,11 @@ public class Solitaire {
 
 		// rule #2 to win all, with a jack played:
 		if (c.value == 11){
-			for (int i = 0; i < river.size(); i++){
+			if (river.size() != 1){
+				for (int i = 0; i < river.size(); i++){
 				cardWon.add(river.get(i));// Adding all card in the river to CardWon
 				river.remove(i);// Removing each card move from the river
+			}
 			}
 		}
 
@@ -83,7 +85,7 @@ public class Solitaire {
 		}
 		System.out.println("new round");
 		currentPlayer.addCards(cardWon);// give the current player the card that he deserve
-		for (int i = 0; i < river.size(); i++){
+		for (int i = 0; i < 4; i++){
 			for (int j = 0; j < players.get(i).getAllCards().size(); j++){
 				System.out.println("Player " + (i+1) + " has" + players.get(i).getAllCards().get(j).value);
 			}
@@ -99,6 +101,9 @@ public class Solitaire {
 	ArrayList<Player>PlayerData = new ArrayList();
 	//the part of your program that's in charge of game rules goes here.
 	public Player GetPlayingPlayer() {
+		if( round % 4 == 0){
+			return players.get(3);
+		}
 		return players.get((round % 4)-1); // the list starts at zero but round start at one	
 	}
 

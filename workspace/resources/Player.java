@@ -3,33 +3,31 @@ import java.util.*;
 
 public class Player {
 	private ArrayList<Card> hand = new ArrayList<>();
-	private ArrayList<Card> allCards = new ArrayList<>();
-	private Card HeldCard;
 	private Queue<Card> deck = new LinkedList<>();
-	private Stack<Card> PrimaryCardStack = null;
 	public ArrayList<Card> getAllCards(){
+		ArrayList<Card> allCards = new ArrayList();
+		for (Card c : deck){
+			allCards.add(c);
+		}
+		for (Card c : hand){
+			allCards.add(c);
+		}
 		return allCards;
 	}
+
+	public Queue<Card> getDeck() {
+		return deck;
+	}
+
 	public ArrayList<Card> removeCards(int i){ // remove the last i num of card and return them, used when being tax 
 		ArrayList<Card> cardRemoved = new ArrayList<>();
-		for (int j = 0; j < i; i++){
-			cardRemoved.add(hand.remove(0));
-			if (deck.size() >= 1) {//draw a card of their deck is not empty
-				hand.add(deck.remove());
-			}
+		for (int j = 0; j<i; j++){// loop i time
+			cardRemoved.add(this.playCard(0));
 		}
 		return cardRemoved;
 	}
 	public ArrayList<Card> getHands(){
 		return hand;
-	}
-
-	public void SetHeldCard(Card Selection) {
-		HeldCard = Selection;
-	}
-
-	public void SetHeldCard() {
-		HeldCard = null;
 	}
 
 	public void playCard(Card c) {// play card and draw a card from the deck
@@ -77,10 +75,6 @@ public class Player {
 		return hand.get(Math.clamp(i, 0, hand.size()-1));
 	}
 
-	public void SetCardStack(Stack<Card> CardStack) {
-		this.PrimaryCardStack = CardStack;
-	}
-	
 	public void CreateDeck() {
 		ArrayList<Card> HoldingDeck = Main.PRIMARYDECK;
 
@@ -95,8 +89,6 @@ public class Player {
 			} else {
 				this.deck.add(HoldingDeck.get(RandomIndex));
 			};
-
-			allCards.add(HoldingDeck.get(RandomIndex));
 			
 			Selected += 1;
 			HoldingDeck.remove(RandomIndex);
