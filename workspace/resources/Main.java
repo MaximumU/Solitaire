@@ -1,3 +1,9 @@
+/*
+* Names: Reggie, Ziru, Liam
+* Description: 
+*
+*/
+
 package resources;
 import java.util.*;
 import javax.imageio.ImageIO;
