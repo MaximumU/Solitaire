@@ -270,16 +270,21 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
     public void mousePressed(MouseEvent arg0) {
         // TODO Auto-generated method stub
         // System.out.println("Mouse has been pressed");
+        Card clicked = (Card) arg0.getComponent();
         if (card1 == null) {
-            card1 = ((Card) arg0.getComponent());
+            card1 = clicked;
             card1.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.red));
         } else {
-            card2 = ((Card) arg0.getComponent());
-
-            // rest of your logic here including checking to make sure if the move is legal,
-            // checking if the game is over and updating the screen.
-            card1 = null; // reset the card variables so you're ready for another move
-            card2 = null;
+            if (card1 == clicked) {
+                // clicked the same card -> deselect
+                card1.setBorder(null);
+                card1 = null;
+            } else {
+                // deselect previous and select the new one
+                card1.setBorder(null);
+                card1 = clicked;
+                card1.setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1, Color.red));
+            }
         }
     }
 
