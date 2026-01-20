@@ -7,17 +7,22 @@ import java.util.Stack;
 public class Solitaire {
 	public ArrayList<Player> players = new ArrayList<>();// player of the game
 	private int round = 1;//round number, use to indicate who is playing
+	private int playerCount = 4; // number of player remaining
 	private ArrayList<Card> river = new ArrayList<>();
-	
+	//Postcondition: return te players in this game
 	public ArrayList<Player> getPlayers(){
 		return players;
 	}
+	//Postcondition: return the round number
 	public int getRound(){
 		return round;
 	}
 
-	public void newRound(Card c){//precondition c != null.
-	//  one round played: current player play c
+	//Precondition: c != null.
+	//Postcondition: The current player play card c, win or tax card accordingly.
+	//Other player lose card from their hand accordingly, round number increase.
+	public void newRound(Card c){
+	// one round played: current player play c
 		Player currentPlayer = this.GetPlayingPlayer();// this is the current player
 		currentPlayer.playCard(c);// current player play deck
 		river.add(c);// add the card into the player
@@ -93,7 +98,18 @@ public class Solitaire {
 		for (int i = 0; i < river.size(); i++){
 			System.out.println(river.get(i).value);
 		}
-		
+		//check if any player run out of card. If so, he's out of the game. and the number of player decrease
+		for (int i = 0; i < players.size(); i++){//loop through the players
+			if(players.get(i).getAllCards().size() == 0){//no card left?
+				players.remove(i);// out of the game
+				i--;//stay at the same index to avoid skipping
+				playerCount--;// that's one less player
+			}
+		}
+		// if there is only one player left, that player wins
+		if (playerCount == 1){
+			GameEndScreen(players.get(0));
+		}
 		round++;
 		
 	}
@@ -101,10 +117,10 @@ public class Solitaire {
 	ArrayList<Player>PlayerData = new ArrayList();
 	//the part of your program that's in charge of game rules goes here.
 	public Player GetPlayingPlayer() {
-		if( round % 4 == 0){
-			return players.get(3);
+		if(round % playerCount == 0){
+			return players.get(playerCount - 1);
 		}
-		return players.get((round % 4)-1); // the list starts at zero but round start at one	
+		return players.get((round % playerCount)-1); // the list starts at zero but round start at one	
 	}
 
 	public void IncremenentRound() {
