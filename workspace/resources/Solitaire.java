@@ -42,11 +42,12 @@ public class Solitaire {
 
 		// rule #2 to win all, with a jack played:
 		if (c.value == 11){
-			if (river.size() != 1){
+			if (river.size() != 1){//if there is no card, a Jack can't win itself
 				for (int i = 0; i < river.size(); i++){
 				cardWon.add(river.get(i));// Adding all card in the river to CardWon
 				river.remove(i);// Removing each card move from the river
-			}
+				i--;//avoid skiping card
+				}
 			}
 		}
 
@@ -89,15 +90,12 @@ public class Solitaire {
 				}
 			}
 		}
-		System.out.println("new round");
 		currentPlayer.addCards(cardWon);// give the current player the card that he deserve
-		for (int i = 0; i < 4; i++){
-			for (int j = 0; j < players.get(i).getAllCards().size(); j++){
-				System.out.println("Player " + (i+1) + " has" + players.get(i).getAllCards().get(j).value);
-			}
-		}
 		for (int i = 0; i < river.size(); i++){
 			System.out.println(river.get(i).value);
+		}
+		for (Player s : players){
+			s.draw();
 		}
 		//check if any player run out of card. If so, he's out of the game. and the number of player decrease
 		for (int i = 0; i < players.size(); i++){//loop through the players
@@ -108,6 +106,7 @@ public class Solitaire {
 			}
 		}
 		// if there is only one player left, that player wins
+		System.out.println("Player remaining: " + playerCount);
 		if (playerCount == 1){
 			winMessage = "Game over, ";
 		}

@@ -92,6 +92,18 @@ public class Player {
 	public Card getCard(int i){
 		return hand.get(Math.clamp(i, 0, hand.size()-1));
 	}
+	//Postcondition: draw card from deck to fill hand if possible
+	public void draw(){
+		if(hand.size() < 3 && deck.size() > 0){
+			for(int i = 0; i < 3; i++){
+				if(deck.size() > 0){
+					Card toRemove = deck.peek();
+					hand.add(toRemove);
+					deck.remove(toRemove);
+				}
+			}
+		}
+	}
 	//Precondition: getAllCards return an empty array list of Card(player doesn't have a deck or hand)
 	//Postcondition: give this player 14 random card from a Stardard poker deck from the Main class, 
 	//so that there is no replicate

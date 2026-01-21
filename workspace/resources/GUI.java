@@ -217,7 +217,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
         // TODO Auto-generated method stub
         // System.out.println("CALLED CLICKED");
         // System.out.println("CALLED CLICKED APPROPRIATLEY");
-        System.out.println("mouse clicked successfully");
+        //System.out.println("mouse clicked successfully");
 		Player currentPlayer = game.GetPlayingPlayer();
 		Card CardSelected = (Card) arg0.getComponent();
 		
@@ -241,7 +241,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 			}
 
 			if (!IsOwnerCard) {
-                System.out.println("bruh im not owner card lel");
+                //System.out.println("bruh im not owner card lel");
 				return;
 			}
 
@@ -326,7 +326,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
             ArrayList<Player>  players = game.getPlayers();
             String text = "Deck sizes";
             for (int i = 0; i < game.playerCount; i++){
-                text = text + "Player " + i +"(" + players.get(0).getDeck().size() + ")";
+                text = text + "Player " + i +"(" + players.get(i).getDeck().size() + ")";
             }
             MainLabel.setText(text);
         }

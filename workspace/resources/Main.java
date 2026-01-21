@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class Main {
-	public static int CARDLIMIT = 52;
+	public static int CARDLIMIT = 12;//52
 	public static int NUMPLAYER = 4;
 	public static ArrayList<Card> PRIMARYDECK  = new ArrayList<Card>();
 
