@@ -6,8 +6,9 @@ import java.util.Stack;
 
 public class Solitaire {
 	public ArrayList<Player> players = new ArrayList<>();// player of the game
+	public String winMessage = null;
 	private int round = 1;//round number, use to indicate who is playing
-	private int playerCount = 4; // number of player remaining
+	public int playerCount = 4; // number of player remaining
 	private ArrayList<Card> river = new ArrayList<>();
 	//Postcondition: return te players in this game
 	public ArrayList<Player> getPlayers(){
@@ -108,7 +109,7 @@ public class Solitaire {
 		}
 		// if there is only one player left, that player wins
 		if (playerCount == 1){
-			GameEndScreen(players.get(0));
+			winMessage = "Game over, ";
 		}
 		round++;
 		

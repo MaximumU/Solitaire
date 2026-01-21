@@ -2,7 +2,7 @@ package resources;
 import java.util.*;
 
 public class Player {
-	private inGame = true;
+	private boolean inGame = true;
 	private ArrayList<Card> hand = new ArrayList<>();
 	private Queue<Card> deck = new LinkedList<>();
 	//Precondition: used on a player object
@@ -27,12 +27,16 @@ public class Player {
 	//Deemed them losing if they don't have enough cards 
 	public ArrayList<Card> removeCards(int i){// remove the last i num of card and return them, used when being tax 
 		ArrayList<Card> cardRemoved = new ArrayList<>();
-		if(i > player.getAllCards().size()){
+		if(i > getAllCards().size()){
 			inGame = false;
-			return player.getAllCards;
+			for(int k = 0; k < getAllCards().size(); i++){
+				cardRemoved.add(this.playCard(0));
+			}
 		}
-		for (int j = 0; j<i; j++){// loop i time
-			cardRemoved.add(this.playCard(0));
+		else{
+			for (int j = 0; j<i; j++){// loop i time
+				cardRemoved.add(this.playCard(0));
+			}
 		}
 		return cardRemoved;
 	}

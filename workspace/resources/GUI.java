@@ -304,7 +304,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
     private void update() {
       //  JPanel validPanel = cardDisplayed.get(game.getRound);
 
-        for (int i = 0; i < Main.NUMPLAYER; i++) {
+        for (int i = 0; i < game.playerCount; i++) {
 			Player SelectedPlayer = game.getPlayers().get(i);
 			ArrayList<Card> PlayerHand = SelectedPlayer.getHands();
 			JPanel UserPanel = cardDisplayed.get(i+1); 
@@ -321,15 +321,18 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
         
         middle.removeAll();
         middle.add(this.drawShownPile(CardRiver, 20));
-
+        
         if (this.MainLabel != null) {
             ArrayList<Player>  players = game.getPlayers();
-
-            MainLabel.setText("Deck sizes: Player 1 (" + players.get(0).getDeck().size() + "), Player 2 ("
-                + players.get(1).getDeck().size() + "), Player 3 (" + players.get(2).getDeck().size() + "), Player 4 ("
-                + players.get(3).getDeck().size() + ")");
+            String text = "Deck sizes";
+            for (int i = 0; i < game.playerCount; i++){
+                text = text + "Player " + i +"(" + players.get(0).getDeck().size() + ")";
+            }
+            MainLabel.setText(text);
         }
-
+        if(game.playerCount == 1){//game end when only one player remain
+            MainLabel.setText("Game over, the last remaining player is victorious");
+        }
         this.repaint();
         this.setVisible(true);
         // just refreshes everything 🧑‍🌾🧑‍🌾;
