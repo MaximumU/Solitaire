@@ -25,19 +25,59 @@ public class Player {
 	//Precondition: i >= 0
 	//Postcondition: make player drop cards for i time, and return them as an ArrayList of Cards
 	//Deemed them losing if they don't have enough cards 
+
 	public ArrayList<Card> removeCards(int i){// remove the last i num of card and return them, used when being tax 
-		ArrayList<Card> cardRemoved = new ArrayList<>();
-		if(i > getAllCards().size()){
+		System.out.println("Remove cards called successfully with quantity:(" + String.valueOf(i) + ")");
+		ArrayList<Card> cardRemoved = new ArrayList<Card>();
+		ArrayList<Card> cardList = getAllCards();
+		ArrayList<Card> cardsToAddBack = new ArrayList<Card>();
+		
+		/*if(i  > getAllCards().size()){
 			inGame = false;
 			for(int k = 0; k < getAllCards().size(); i++){
 				cardRemoved.add(this.playCard(0));
 			}
 		}
-		else{
+
+		else {
 			for (int j = 0; j<i; j++){// loop i time
 				cardRemoved.add(this.playCard(0));
 			}
+		}*/
+
+	/* */
+
+	for (int index = cardList.size()-1; index >= 0; index--) {
+			if (cardRemoved.size() >= i) {
+				System.out.println("card removed is greater than " + String.valueOf(i) + " ending");
+				break;
+			}
+
+			Card foundCard = cardList.get(index);
+
+			 for (int handDex = hand.size()-1; handDex >= 0; handDex--) {
+				Card inHand = hand.get(handDex);
+
+				if (inHand.equals(foundCard)) {
+					System.out.println("CARD IN HAND EQUALS FOUND CARD");
+					
+					hand.remove(handDex);
+					cardRemoved.add(foundCard);
+
+					if (deck.size() > 0) {
+						System.out.println("card removed from deck");
+						cardsToAddBack.add(deck.remove());
+					}
+
+					break;
+				}
+			 }
 		}
+
+		for (int cardIndex = 0; cardIndex < cardsToAddBack.size(); cardIndex++) {
+			hand.add(cardsToAddBack.get(cardIndex));
+		}
+ 
 		return cardRemoved;
 	}
 	//Precondition: used on a player object
@@ -49,10 +89,11 @@ public class Player {
 	//Precondition: c exist within player's hand and c != null.
 	//Postcondition: play card(drop it from hand) and draw a card from the deck.
 	public void playCard(Card c) {
-		for (int i = 0; i < hand.size(); i++) {
+		for (int i = hand.size()-1; i >=0; i--) {
 			if(hand.get(i).equals(c)){
-				System.out.println("FOUND CARD, REMOVING IT FROM THE PLAYERS HAND!");
+				//System.out.println("FOUND CARD, REMOVING IT FROM THE PLAYERS HAND!");
 				hand.remove(i);
+
 				if (deck.size() >= 1) {//draw a card of their deck is not empty
 					hand.add(deck.remove());
 				}

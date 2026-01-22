@@ -11,9 +11,11 @@ public class Solitaire {
 	public int playerCount = 4; // number of player remaining
 	private ArrayList<Card> river = new ArrayList<>();
 	//Postcondition: return te players in this game
+	
 	public ArrayList<Player> getPlayers(){
 		return players;
 	}
+
 	//Postcondition: return the round number
 	public int getRound(){
 		return round;
@@ -24,6 +26,8 @@ public class Solitaire {
 	//Other player lose card from their hand accordingly, round number increase.
 	public void newRound(Card c){
 	// one round played: current player play c
+	   // System.out.println("Card played");
+
 		Player currentPlayer = this.GetPlayingPlayer();// this is the current player
 		currentPlayer.playCard(c);// current player play deck
 		river.add(c);// add the card into the player
@@ -36,7 +40,6 @@ public class Solitaire {
 					cardWon.add(river.get(i));// adding each card to the card Won
 					river.remove(i);// Removing each card move from the river
 				}
-				currentPlayer.addCards(cardWon);// giving the deck won to the Player
 			}
 		}
 
@@ -62,6 +65,7 @@ public class Solitaire {
 					}
 				}
 			}
+
 			if (c.suit == Card.Suit.Clubs){// An Ace of Clubs
 				for (Player p : players){
 					if (p != currentPlayer){
@@ -71,6 +75,7 @@ public class Solitaire {
 					}
 				}
 			}
+
 			if (c.suit == Card.Suit.Hearts){// An Ace of Hearts
 				for (Player p : players){
 					if (p != currentPlayer){
@@ -80,9 +85,11 @@ public class Solitaire {
 					}
 				}
 			}
+
 			if (c.suit == Card.Suit.Spades){// An Ace of Spades
 				for (Player p : players){
 					if (p != currentPlayer){
+						//System.out.println("");
 						cardWon.addAll(p.removeCards(4));
 						// remove 4 card from each player(not including the current one)
 						// and add them to the Card Won
@@ -90,28 +97,40 @@ public class Solitaire {
 				}
 			}
 		}
-		currentPlayer.addCards(cardWon);// give the current player the card that he deserve
-		for (int i = 0; i < river.size(); i++){
+
+		/*for (int i = 0; i < river.size(); i++){
 			System.out.println(river.get(i).value);
+		}*/
+
+		//allow current player to draw card from deck
+		if (cardWon.size() >= 1) {
+		   currentPlayer.addCards(cardWon);// giving the deck won to the Player
 		}
-		for (Player s : players){
-			s.draw();
-		}
+
+		currentPlayer.draw();
+
 		//check if any player run out of card. If so, he's out of the game. and the number of player decrease
-		for (int i = 0; i < players.size(); i++){//loop through the players
+		/* for (int i = 0; i < players.size(); i++){//loop through the players
 			if(players.get(i).getAllCards().size() == 0){//no card left?
+				System.out.println("player out");
 				players.remove(i);// out of the game
 				i--;//stay at the same index to avoid skipping
 				playerCount--;// that's one less player
 			}
-		}
+		}*/
+
+		for (int i = players.size() - 1; i >= 0; i--) {
+			if(players.get(i).getAllCards().size() <= 0){//no card left?
+				//System.out.println("player out");
+				players.remove(i);// out of the game
+				playerCount--;// that's one less player
+			}
+		};
+
+
 		// if there is only one player left, that player wins
-		System.out.println("Player remaining: " + playerCount);
-		if (playerCount == 1){
-			winMessage = "Game over, ";
-		}
+		//System.out.println("Player remaining: " + playerCount);
 		round++;
-		
 	}
 	Player PlayingPlayer = null;
 	ArrayList<Player>PlayerData = new ArrayList();
@@ -119,13 +138,16 @@ public class Solitaire {
 	public Player GetPlayingPlayer() {
 		if(round % playerCount == 0){
 			return players.get(playerCount - 1);
-		}
+		};
+
 		return players.get((round % playerCount)-1); // the list starts at zero but round start at one	
 	}
 
 	public void IncremenentRound() {
 		round++;
 	};
+
+	
 
 	public ArrayList<Card> GetRiver() {
 		return river;

@@ -76,7 +76,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
             Stack<Card> stack = new Stack();
             Player editingPlayer = game.getPlayers().get(i); // define player that is being edited in the for - loop
 
-            System.out.println(i);
+           // System.out.println(i);
 
             // add user-cards to stack (cards 1, 2, 3 and already intiilized frooom player)
 			
@@ -131,7 +131,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
                 gbc.gridy =1;
         
             } else if (i == 2) {
-                System.out.println("here");
+               // System.out.println("here");
                 ColorSet = Color.GREEN;
         	gbc.gridx = 2;
                 gbc.gridy =0;
@@ -301,7 +301,7 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 
     }
 
-    private void update() {
+    public void update() {
       //  JPanel validPanel = cardDisplayed.get(game.getRound);
 
         for (int i = 0; i < game.playerCount; i++) {
@@ -313,7 +313,6 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
 			// sure it makes sense like technologically but when you think of itlogically a player should own their own stuff
 			
 			UserPanel.removeAll();
-            
 			UserPanel.add(this.drawShownPile(PlayerHand, 60));
 		}
 
@@ -324,15 +323,19 @@ public class GUI extends JFrame implements ActionListener, MouseListener, MouseM
         
         if (this.MainLabel != null) {
             ArrayList<Player>  players = game.getPlayers();
-            String text = "Deck sizes";
+            String text = "Player remaining: " + game.playerCount;
+            /* 
             for (int i = 0; i < game.playerCount; i++){
                 text = text + "Player " + i +"(" + players.get(i).getDeck().size() + ")";
             }
+            */
             MainLabel.setText(text);
         }
+
         if(game.playerCount == 1){//game end when only one player remain
             MainLabel.setText("Game over, the last remaining player is victorious");
         }
+
         this.repaint();
         this.setVisible(true);
         // just refreshes everything 🧑‍🌾🧑‍🌾;
